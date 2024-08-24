@@ -3,7 +3,7 @@ import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adap
 import PocketBase from "pocketbase";
 
 export function createServerClient(cookieStore?: ReadonlyRequestCookies) {
-  if (!process.env.POCKETBASE_URL) {
+  if (!process.env.NEXT_PUBLIC_POCKETBASE_URL) {
     throw new Error("Pocketbase API url not defined !");
   }
 
@@ -14,7 +14,7 @@ export function createServerClient(cookieStore?: ReadonlyRequestCookies) {
   }
 
   const client = new PocketBase(
-    process.env.POCKETBASE_URL
+    process.env.NEXT_PUBLIC_POCKETBASE_URL
   ) as TypedPocketBase;
 
   if (cookieStore) {
@@ -31,13 +31,13 @@ export function createServerClient(cookieStore?: ReadonlyRequestCookies) {
 let singletonClient: TypedPocketBase | null = null;
 
 export function createBrowserClient() {
-  if (!process.env.POCKETBASE_URL) {
+  if (!process.env.NEXT_PUBLIC_POCKETBASE_URL) {
     throw new Error("Pocketbase API url not defined !");
   }
 
   const createNewClient = () => {
     return new PocketBase(
-      process.env.POCKETBASE_URL
+      process.env.NEXT_PUBLIC_POCKETBASE_URL
     ) as TypedPocketBase;
   };
 
