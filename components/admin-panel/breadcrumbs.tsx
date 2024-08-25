@@ -45,7 +45,7 @@ const BreadCrumbs = ({
         <Breadcrumb className={className}>
             <BreadcrumbList>
                 <BreadcrumbItem>
-                    <BreadcrumbLink href="/">
+                    <BreadcrumbLink href="/dashboard">
                         <Home />
                     </BreadcrumbLink>
                 </BreadcrumbItem>

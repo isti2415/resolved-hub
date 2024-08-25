@@ -3,7 +3,7 @@ import React from 'react'
 
 function Dashboard() {
   return (
-    <ContentLayout title="Dashboard">Dashboard</ContentLayout>
+    <ContentLayout>Dashboard</ContentLayout>
   )
 }
 
