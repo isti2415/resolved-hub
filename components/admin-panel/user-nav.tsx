@@ -20,7 +20,7 @@ import {
   TooltipProvider,
   TooltipTrigger
 } from "@/components/ui/tooltip";
-import { createBrowserClient } from "@/lib/pb";
+import { createBrowserClient } from "@/lib/pocketbase";
 import { useRouter } from "next/navigation";
 
 export function UserNav() {

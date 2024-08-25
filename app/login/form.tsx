@@ -27,7 +27,7 @@ import { z } from "zod";
 import { PasswordInput } from "@/components/ui/password-input";
 import { useToast } from "@/components/ui/use-toast";
 import { loginSchema } from "./schema";
-import { createBrowserClient } from "@/lib/pb";
+import { createBrowserClient } from "@/lib/pocketbase";
 import { ClientResponseError } from "pocketbase";
 
 export function LoginForm() {

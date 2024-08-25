@@ -2,6 +2,7 @@ import {
   Box,
   Coins,
   LayoutGrid,
+  LockKeyhole,
   LucideIcon,
   ShoppingBag,
   ShoppingCart,
@@ -178,24 +179,42 @@ export function getMenuList(pathname: string): Group[] {
       menus: [
         {
           href: "",
-          label: "Users",
-          active: pathname.includes("/users"),
+          label: "HR",
+          active: pathname.includes("/dashboard/hr"),
           icon: Users,
+          submenus: [
+            {
+              href: "/dashboard/hr/employee",
+              label: "Employee",
+              active: pathname === "/dashboard/hr/employee"
+            },
+            {
+              href: "/dashboard/hr/departments",
+              label: "Departments",
+              active: pathname === "/dashboard/hr/departments"
+            },
+            {
+              href: "/dashboard/hr/positions",
+              label: "Positions",
+              active: pathname === "/dashboard/hr/positions"
+            },
+          ]
+        },
+      ]
+    },
+    {
+      groupLabel: "",
+      menus: [
+        {
+          href: "",
+          label: "Admin",
+          active: pathname.includes("/admin"),
+          icon: LockKeyhole,
           submenus: [
             {
               href: "/users",
               label: "All Users",
               active: pathname === "/users"
-            },
-            {
-              href: "/users/active-sessions",
-              label: "Active Sessions",
-              active: pathname === "/users/active-sessions"
-            },
-            {
-              href: "/users/sessions",
-              label: "Sessions",
-              active: pathname === "/users/sessions"
             },
           ]
         },

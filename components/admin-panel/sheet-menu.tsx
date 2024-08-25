@@ -9,6 +9,8 @@ import {
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import Image from "next/image";
+import Logo from "../logo";
 
 export function SheetMenu() {
   return (
@@ -26,7 +28,7 @@ export function SheetMenu() {
             asChild
           >
             <Link href="/dashboard" className="flex items-center gap-2">
-              <h1 className="font-bold text-lg">Resolved Hub</h1>
+              <Logo width={150} height={30} withText/>
             </Link>
           </Button>
         </SheetHeader>

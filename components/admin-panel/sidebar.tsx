@@ -7,11 +7,12 @@ import { Button } from "@/components/ui/button";
 import { Menu } from "@/components/admin-panel/menu";
 import { useSidebarToggle } from "@/lib/hooks/use-sidebar-toggle";
 import { SidebarToggle } from "@/components/admin-panel/sidebar-toggle";
+import Logo from "../logo";
 
 export function Sidebar() {
   const sidebar = useStore(useSidebarToggle, (state) => state);
-  
-  if(!sidebar) return null;
+
+  if (!sidebar) return null;
 
   return (
     <aside
@@ -30,17 +31,19 @@ export function Sidebar() {
           variant="link"
           asChild
         >
-          <Link href="/dashboard" className="flex items-center gap-2">
-            <h1
-              className={cn(
-                "font-bold text-lg whitespace-nowrap transition-[transform,opacity,display] ease-in-out duration-300",
-                sidebar?.isOpen === false
-                  ? "-translate-x-96 opacity-0 hidden"
-                  : "translate-x-0 opacity-100"
-              )}
-            >
-              Resolved Hub
-            </h1>
+          <Link href="/dashboard">
+            {sidebar?.isOpen ? (
+              <Logo
+                width={150}
+                height={30}
+                withText
+              />
+            ) : (
+              <Logo
+                width={30}
+                height={30}
+              />
+            )}
           </Link>
         </Button>
         <Menu isOpen={sidebar?.isOpen} />
