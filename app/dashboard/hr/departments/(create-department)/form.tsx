@@ -14,6 +14,7 @@ import React, { useState } from "react";
 import { z } from "zod";
 import { createDepartment } from "@/utils/hrms/departmentManagementUtils/createDepartment";
 import { Department } from "@/types/hrms/Department";
+import { toast } from "@/components/ui/use-toast";
 
 function CreateDepartmentForm() {
   const [isLoading, setIsLoading] = useState(false);
