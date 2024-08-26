@@ -65,7 +65,7 @@ export function DataTable<TData, TValue>({
 
     return (
         <div className="flex flex-col gap-2 min-h-[calc(100vh-96px)]">
-            <div className="flex items-center space-x-4">
+            <div className="grid grid-cols-2 lg:grid-cols-3 items-center justify-between gap-2">
                 {table.getAllColumns().map((column) => {
                     return (
                         column.getCanFilter() && (

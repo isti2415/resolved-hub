@@ -69,7 +69,7 @@ export const columns: ColumnDef<RecordModel>[] = [
         header: ({column}) => (
             <DataTableColumnHeader column={column} title="Email"/>
         ),
-        enableColumnFilter: false,
+        enableColumnFilter: true,
         enableSorting:false,
     },
     {
@@ -77,7 +77,7 @@ export const columns: ColumnDef<RecordModel>[] = [
         header: ({column}) => (
             <DataTableColumnHeader column={column} title="Role"/>
         ),
-        enableColumnFilter: false,
+        enableColumnFilter: true,
         enableSorting:true,
     },
     {
