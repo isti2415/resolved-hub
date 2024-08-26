@@ -64,8 +64,8 @@ export function DataTable<TData, TValue>({
     };
 
     return (
-        <div className="flex flex-col gap-2 min-h-[calc(100vh-96px)]">
-            <div className="grid grid-cols-2 lg:grid-cols-3 items-center justify-between gap-2">
+        <div className="flex flex-col gap-2 min-h-[calc(100vh-144px)] w-full">
+            <div className="grid grid-cols-2 lg:grid-cols-3 items-center justify-between gap-4">
                 {table.getAllColumns().map((column) => {
                     return (
                         column.getCanFilter() && (
@@ -76,7 +76,6 @@ export function DataTable<TData, TValue>({
                                 onChange={(event) =>
                                     column.setFilterValue(event.target.value)
                                 }
-                                className="max-w-sm"
                             />
                         )
                     );
@@ -123,7 +122,7 @@ export function DataTable<TData, TValue>({
                             <TableRow>
                                 <TableCell
                                     colSpan={columns.length}
-                                    className="text-center"
+                                    className="font-bold text-xl text-center h-[calc(100vh-264px)]"
                                 >
                                     No results.
                                 </TableCell>

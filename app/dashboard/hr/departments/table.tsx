@@ -59,44 +59,28 @@ export const columns: ColumnDef<RecordModel>[] = [
     {
         accessorKey: "name",
         header: ({column}) => (
-            <DataTableColumnHeader column={column} title="Name"/>
+            <DataTableColumnHeader column={column} title="Department Name"/>
         ),
         enableColumnFilter: true,
         enableSorting:false,
     },
     {
-        accessorKey: "email",
-        header: ({column}) => (
-            <DataTableColumnHeader column={column} title="Email"/>
-        ),
-        enableColumnFilter: true,
-        enableSorting:false,
-    },
-    {
-        accessorKey: "role",
-        header: ({column}) => (
-            <DataTableColumnHeader column={column} title="Role"/>
-        ),
-        enableColumnFilter: true,
-        enableSorting:true,
-    },
-    {
-        accessorKey: "createdAt",
+        accessorKey: "created",
         header: ({column}) => (
             <DataTableColumnHeader column={column} title="Created At"/>
         ),
         enableColumnFilter: false,
         enableSorting: true,
-        cell: ({ row }) => formatDate(row.getValue("createdAt"))
+        cell: ({ row }) => formatDate(row.getValue("created"))
     },
     {
-        accessorKey: "updatedAt",
+        accessorKey: "updated",
         header: ({column}) => (
             <DataTableColumnHeader column={column} title="Updated At"/>
         ),
         enableColumnFilter: false,
         enableSorting:true,
-        cell: ({ row }) => formatDate(row.getValue("updatedAt"))
+        cell: ({ row }) => formatDate(row.getValue("updated"))
     },
     {
         id: "actions",
