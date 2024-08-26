@@ -1,6 +1,6 @@
 import { toast } from "@/components/ui/use-toast";
 import { createBrowserClient } from "@/lib/pocketbase";
-import { Position } from "@/types/hrms-types/Position-type";
+import { Position } from "@/types/hrms/Position";
 import { ClientResponseError } from "pocketbase";
 import { z } from "zod";
 

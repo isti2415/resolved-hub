@@ -1,6 +1,6 @@
 import { toast } from "@/components/ui/use-toast";
 import { createBrowserClient } from "@/lib/pocketbase";
-import { Department } from "@/types/hrms-types/Department-type";
+import { Department } from "@/types/hrms/Department";
 import { ClientResponseError } from "pocketbase";
 import { z } from "zod";
 

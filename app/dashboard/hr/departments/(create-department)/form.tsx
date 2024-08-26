@@ -13,7 +13,7 @@ import {
 import React, { useState } from "react";
 import { z } from "zod";
 import { createDepartment } from "@/utils/hrms/departmentManagementUtils/createDepartment";
-import { Department } from "@/types/hrms-types/Department-type";
+import { Department } from "@/types/hrms/Department";
 
 function CreateDepartmentForm() {
   const [isLoading, setIsLoading] = useState(false);
