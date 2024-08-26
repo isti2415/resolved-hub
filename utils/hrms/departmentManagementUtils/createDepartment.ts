@@ -1,6 +1,7 @@
 "use server";
 import { createBrowserClient } from "@/lib/pocketbase";
 import { Department } from "@/types/hrms/Department";
+import { revalidatePath } from "next/cache";
 import { ClientResponseError } from "pocketbase";
 import { z } from "zod";
 
@@ -12,6 +13,7 @@ export async function createDepartment(data: z.infer<typeof Department>) {
 
     if (response) {
       console.log(response);
+      revalidatePath("/hr/departments")
       return { success: true, message: "Department Created Successfully" };
     }
   } catch (error) {

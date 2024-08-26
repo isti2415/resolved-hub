@@ -1,65 +1,14 @@
-"use client"
-
 import { ContentLayout } from "@/components/admin-panel/content-layout";
 import { DataTable } from "@/components/data-table";
-import React, { useEffect, useState, useCallback } from "react";
-import { columns } from "./table";
 import { createBrowserClient } from "@/lib/pocketbase";
 import CreateDepartmentForm from "./(create-department)/form";
-import { RecordModel } from "pocketbase";
+import { columns } from "./table";
 
-function Departments() {
-  const [records, setRecords] = useState<RecordModel[]>([]);
+async function Departments() {
   const pb = createBrowserClient();
-
-  const fetchDepartments = useCallback(async () => {
-    try {
-      const fetchedRecords = await pb.collection('Departments').getFullList({
-        sort: '-created',
-      });
-      setRecords(fetchedRecords);
-    } catch (error) {
-      console.error("Error fetching departments:", error);
-    }
-  }, [pb]);
-
-  useEffect(() => {
-    fetchDepartments();
-
-    let unsubscribe: (() => void) | null = null;
-
-    const setupSubscription = async () => {
-      unsubscribe = await pb.collection('Departments').subscribe('*', function(e) {
-        if (e.action === 'create') {
-          setRecords(prevRecords => {
-            // Check if the record already exists to prevent double addition
-            if (!prevRecords.some(record => record.id === e.record.id)) {
-              return [e.record, ...prevRecords];
-            }
-            return prevRecords;
-          });
-        } else if (e.action === 'update') {
-          setRecords(prevRecords => 
-            prevRecords.map(record => 
-              record.id === e.record.id ? e.record : record
-            )
-          );
-        } else if (e.action === 'delete') {
-          setRecords(prevRecords => 
-            prevRecords.filter(record => record.id !== e.record.id)
-          );
-        }
-      });
-    };
-
-    setupSubscription();
-
-    return () => {
-      if (unsubscribe) {
-        unsubscribe();
-      }
-    };
-  }, [pb, fetchDepartments]);
+  const records = await pb.collection('Departments').getFullList({
+    sort: '-created',
+  });
 
   return (
     <ContentLayout>
