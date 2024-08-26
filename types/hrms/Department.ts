@@ -7,4 +7,4 @@ export const Department = z.object({
     .trim(),
 });
 
-export type LoginType = z.infer<typeof Department>;
+export type DepartmentType = z.infer<typeof Department>;
