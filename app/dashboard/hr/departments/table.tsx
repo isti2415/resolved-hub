@@ -13,6 +13,9 @@ import {
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { DataTableColumnHeader } from "@/components/data-table/header";
 import { RecordModel } from "pocketbase";
+import DeleteDialog from "@/components/delete-dialog";
+import { deleteDepartment } from "@/actions/hrms/department";
+import EditDepartmentForm from "./edit-department";
 
 interface User {
   id: string;
@@ -43,15 +46,11 @@ const ActionCell = ({ row }: { row: Row<RecordModel> }) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem asChild>
-          <Button variant="ghost" className="w-full">
-            Update
-          </Button>
+          <EditDepartmentForm id={selected.id} name={selected.name}/>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem asChild>
-          <Button variant="ghost" className="w-full">
-            Delete
-          </Button>
+        <DropdownMenuItem className="w-full" asChild>
+          <DeleteDialog button="Delete" description="Deleting this will permenantly remove the selected department." onDelete={() => deleteDepartment(selected.id)}/>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

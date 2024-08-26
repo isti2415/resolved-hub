@@ -12,56 +12,50 @@ import {
 } from "@/components/ui/credenza";
 import React, { useState } from "react";
 import { z } from "zod";
-import { createDepartment } from "@/utils/hrms/departmentManagementUtils/createDepartment";
-import { Department } from "@/types/hrms/Department";
+import { createDepartment, editDepartment } from "@/actions/hrms/department";
+import { Department, DepartmentType } from "@/types/hrms/Department";
 import { toast } from "@/components/ui/use-toast";
+import { RecordModel } from "pocketbase";
 
-function CreateDepartmentForm() {
+function EditDepartmentForm({id, name}:{id: string, name: string}) {
   const [isLoading, setIsLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
   const onSubmit = async (values: z.infer<typeof Department>) => {
     setIsLoading(true);
-    try {
-      const result = await createDepartment(values);
-      if (result?.success) {
-        toast({
-          title: "Department Created",
-          description: result.message,
-        });
-      } else {
-        toast({
-          title: "Failed to create Department",
-          description: result?.message,
-          variant: "destructive",
-        });
-      }
-    } catch (error) {
-      console.error('Error in createDepartment:', error);
+    const result = await editDepartment(id, values);
+    setIsLoading(false);
+    if (result?.success) {
       toast({
-        title: "Error",
-        description: "An unexpected error occurred",
+        title: "Department Created",
+        description: result.message,
+      });
+      setIsOpen(false); // Close the Credenza
+    } else {
+      toast({
+        title: "Failed to create Department",
+        description: result?.message,
         variant: "destructive",
       });
-    } finally {
-      setIsLoading(false);
     }
   };
 
   return (
-    <Credenza>
+    <Credenza open={isOpen} onOpenChange={setIsOpen}>
       <CredenzaTrigger asChild>
-        <Button>Create New Department</Button>
+        <Button variant={"ghost"}>Edit Department</Button>
       </CredenzaTrigger>
       <CredenzaContent>
         <CredenzaHeader>
-          <CredenzaTitle className="text-2xl">Create Department</CredenzaTitle>
+          <CredenzaTitle className="text-2xl">Edit Department</CredenzaTitle>
           <CredenzaDescription>
-            Enter the department name below to create a new department.
+            Edit existing department.
           </CredenzaDescription>
         </CredenzaHeader>
         <AutoForm
           onSubmit={onSubmit}
           formSchema={Department}
-          fieldConfig={{ name: { label: "Department Name" } }}
+          fieldConfig={{ name: { label: "Department Name", inputProps: {placeholder: name} } }}
           className="p-4 md:p-0"
         >
           <AutoFormSubmit className="w-full" disabled={isLoading}>
@@ -73,4 +67,4 @@ function CreateDepartmentForm() {
   );
 }
 
-export default CreateDepartmentForm;
+export default EditDepartmentForm;

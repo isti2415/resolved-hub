@@ -1,14 +1,17 @@
 import { ContentLayout } from "@/components/admin-panel/content-layout";
 import { DataTable } from "@/components/data-table";
-import { createBrowserClient } from "@/lib/pocketbase";
-import CreateDepartmentForm from "./(create-department)/form";
+import CreateDepartmentForm from "./create-department";
 import { columns } from "./table";
+import { getAllDepartments } from "@/actions/hrms/department";
+import { RecordModel } from "pocketbase";
 
 async function Departments() {
-  const pb = createBrowserClient();
-  const records = await pb.collection('Departments').getFullList({
-    sort: '-created',
-  });
+  const result = await getAllDepartments();
+
+  let departments: RecordModel[] = [];
+  if (result.success && Array.isArray(result.data)) {
+    departments = result.data;
+  }
 
   return (
     <ContentLayout>
@@ -17,7 +20,11 @@ async function Departments() {
           <h1 className="text-lg font-bold">Department List</h1>
           <CreateDepartmentForm />
         </div>
-        <DataTable data={records} columns={columns} />
+        {result.success ? (
+          <DataTable data={departments} columns={columns} />
+        ) : (
+          <p>Error: {result.message}</p>
+        )}
       </div>
     </ContentLayout>
   );

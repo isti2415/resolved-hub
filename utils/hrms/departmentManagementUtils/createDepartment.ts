@@ -19,8 +19,8 @@ export async function createDepartment(data: z.infer<typeof Department>) {
   } catch (error) {
     console.error("Error creating department:", error);
 
-    if (error instanceof Error) {
-      if ("status" in error && error.status === 400) {
+    if (error instanceof ClientResponseError) {
+      if (error.status === 400) {
         return { success: false, message: "Invalid department name" };
       } else {
         return {
