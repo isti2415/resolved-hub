@@ -37,3 +37,34 @@ export async function createDepartment(data: z.infer<typeof Department>) {
     }
   }
 }
+
+export async function editDepartment(id: string, data: z.infer<typeof Department>) {
+  try {
+    const response = await pb.collection("Departments").update(id, data);
+
+    if (response) {
+      console.log(response);
+      revalidatePath("/hr/departments")
+      return { success: true, message: "Department Updated Successfully" };
+    }
+  } catch (error) {
+    console.error("Error updating department:", error);
+
+    if (error instanceof ClientResponseError) {
+      if (error.status === 400) {
+        return { success: false, message: "Invalid department name" };
+      } else {
+        return {
+          success: false,
+          message: "An unexpected error occurred. Please try again.",
+        };
+      }
+    } else {
+      return {
+        success: false,
+        message:
+          "A network error occurred. Please check your connection and try again.",
+      };
+    }
+  }
+}

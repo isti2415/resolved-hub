@@ -12,10 +12,10 @@ import {
 } from "@/components/ui/credenza";
 import React, { useState } from "react";
 import { z } from "zod";
-import { createDepartment, editDepartment } from "@/actions/hrms/department";
-import { Department, DepartmentType } from "@/types/hrms/Department";
+import { editDepartment } from "@/actions/hrms/department";
+import { Department} from "@/types/hrms/Department";
 import { toast } from "@/components/ui/use-toast";
-import { RecordModel } from "pocketbase";
+
 
 function EditDepartmentForm({id, name}:{id: string, name: string}) {
   const [isLoading, setIsLoading] = useState(false);
