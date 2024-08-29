@@ -2,9 +2,6 @@
 
 import { ColumnDef, Row } from "@tanstack/react-table";
 
-import { deletePosition } from "@/actions/hrms/position";
-import { DataTableColumnHeader } from "@/components/data-table/header";
-import DeleteDialog from "@/components/delete-dialog";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -14,8 +11,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
+import { DataTableColumnHeader } from "@/components/data-table/header";
 import { RecordModel } from "pocketbase";
-import EditDepartmentForm from "./edit-position";
+import DeleteDialog from "@/components/delete-dialog";
+import { deleteEmployee } from "@/actions/hrms/employee";
+import EditEmployeeForm from "./edit-employee";
+import { useState } from "react";
 
 const formatDate = (date: string | Date) => {
   if (typeof date === "string") {
@@ -25,6 +26,7 @@ const formatDate = (date: string | Date) => {
 };
 
 const ActionCell = ({ row }: { row: Row<RecordModel> }) => {
+
   const selected = row.original;
 
   return (
@@ -37,11 +39,11 @@ const ActionCell = ({ row }: { row: Row<RecordModel> }) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem asChild>
-          <EditDepartmentForm id={selected.id} name={selected.name}/>
+          <EditEmployeeForm id={selected.id} name={selected.name} />
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <DeleteDialog button="Delete" description="Deleting this will permenantly remove the selected position." onDelete={() => deletePosition(selected.id)}/>
+          <DeleteDialog button="Delete" description="Deleting this will permenantly remove the selected employee." onDelete={() => deleteEmployee(selected.id)}/>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
@@ -52,7 +54,7 @@ export const columns: ColumnDef<RecordModel>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Position Name" />
+      <DataTableColumnHeader column={column} title="Employee Name" />
     ),
     enableColumnFilter: true,
     enableSorting: false,
