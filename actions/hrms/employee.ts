@@ -85,12 +85,6 @@ export async function getEmployeeById(id: string): Promise<Result> {
   );
 }
 
-export async function archiveEmployee(id: string): Promise<Result> {
-  return handlePocketBaseOperation(
-    () => pb.collection(EMPLOYEES_COLLECTION).update<RecordModel>(id, { status: 'inactive' }),
-    "Employee Archived Successfully"
-  );
-}
 
 export async function getEmployeesByDepartment(departmentId: string): Promise<Result> {
   return handlePocketBaseOperation(
