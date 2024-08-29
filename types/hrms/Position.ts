@@ -7,4 +7,4 @@ export const Position = z.object({
     .trim(),
 });
 
-export type LoginType = z.infer<typeof Position>;
+export type PositionType = z.infer<typeof Position>;
