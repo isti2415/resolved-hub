@@ -15,8 +15,7 @@ import { DataTableColumnHeader } from "@/components/data-table/header";
 import { RecordModel } from "pocketbase";
 import DeleteDialog from "@/components/delete-dialog";
 import { deleteDepartment } from "@/actions/hrms/department";
-import EditDepartmentForm from "./edit-department";
-import { useState } from "react";
+import EditDepartmentForm from "./edit-position";
 
 const formatDate = (date: string | Date) => {
   if (typeof date === "string") {
@@ -26,7 +25,6 @@ const formatDate = (date: string | Date) => {
 };
 
 const ActionCell = ({ row }: { row: Row<RecordModel> }) => {
-
   const selected = row.original;
 
   return (
@@ -39,7 +37,7 @@ const ActionCell = ({ row }: { row: Row<RecordModel> }) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem asChild>
-          <EditDepartmentForm id={selected.id} name={selected.name} />
+          <EditDepartmentForm id={selected.id} name={selected.name}/>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
@@ -54,7 +52,7 @@ export const columns: ColumnDef<RecordModel>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Department Name" />
+      <DataTableColumnHeader column={column} title="Position Name" />
     ),
     enableColumnFilter: true,
     enableSorting: false,
