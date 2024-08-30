@@ -1,44 +1,58 @@
 import { getAllDepartments } from "@/actions/hrms/department";
 import { getAllPositions } from "@/actions/hrms/position";
-import { RecordModel } from "pocketbase";
 import { z } from "zod";
 import { Result } from "../Result";
 
 export const Department: { [key: string]: string } = {};
 export const Position: { [key: string]: string } = {};
 
-function updateEnum(
-  enumObject: { [key: string]: string },
-  newValues: { [key: string]: string }
-): void {
-  Object.keys(enumObject).forEach(key => delete enumObject[key]);
-  Object.assign(enumObject, newValues);
+export let departmentOptions: { name: string; id: string }[] = [];
+export let positionOptions: { name: string; id: string }[] = [];
+
+async function createDepartmentEnum() {
+  const result: Result = await getAllDepartments();
+  const departments = result.data;
+
+  if (!Array.isArray(departments)) {
+    throw new Error("Expected an array of departments");
+  }
+
+  departmentOptions = departments.map((department) => ({
+    name: department.name,
+    id: department.id,
+  }));
+
+  const DepartmentEnum = departments.reduce((acc, department) => {
+    acc[department.name] = department.id;
+    return acc;
+  }, {} as Record<string, string>);
+
+  Object.assign(Department, DepartmentEnum);
 }
 
-export const updateEmployeeEnums = async (): Promise<void> => {
-  const [departmentsResult, positionsResult] = await Promise.all([
-    getAllDepartments(),
-    getAllPositions()
-  ]);
+async function createPositionEnum() {
+  const result: Result = await getAllPositions();
+  const positions = result.data;
 
-  if (departmentsResult.data) {
-    const departmentValues = departmentsResult.data.reduce((acc: {[key: string]: string}, item: RecordModel) => {
-      acc[item.id] = item.name;
-      return acc;
-    }, {});
-    updateEnum(Department, departmentValues);
+  if (!Array.isArray(positions)) {
+    throw new Error("Expected an array of positions");
   }
 
-  if (positionsResult.data) {
-    const positionValues = positionsResult.data.reduce((acc: {[key: string]: string}, item: RecordModel) => {
-      acc[item.id] = item.name;
-      return acc;
-    }, {});
-    updateEnum(Position, positionValues);
-  }
-};
+  positionOptions = positions.map((position) => ({
+    name: position.name,
+    id: position.id,
+  }));
 
-updateEmployeeEnums();
+  const PositionEnum = positions.reduce((acc, position) => {
+    acc[position.name] = position.id;
+    return acc;
+  }, {} as Record<string, string>);
+
+  Object.assign(Position, PositionEnum);
+}
+
+createDepartmentEnum();
+createPositionEnum();
 
 const DepartmentEnum = z.nativeEnum(Department);
 const PositionEnum = z.nativeEnum(Position);

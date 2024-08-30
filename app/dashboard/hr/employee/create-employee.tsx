@@ -20,8 +20,7 @@ import { RecordModel } from "pocketbase";
 function CreateEmployeeForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [departments, setDepartments] = useState<RecordModel[]>()
-  const [positions, setPositions] = useState<RecordModel[]>()
+
 
   const onSubmit = async (values: z.infer<typeof Employee>) => {
     setIsLoading(true);
