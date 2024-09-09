@@ -1,81 +1,21 @@
-import { getAllDepartments } from "@/actions/hrms/department";
-import { getAllPositions } from "@/actions/hrms/position";
-import { z } from "zod";
-import { Result } from "../Result";
+import { z } from 'zod';
+import { Department } from './Department';
+import { Position} from './Position';
 
-export const Department: { [key: string]: string } = {};
-export const Position: { [key: string]: string } = {};
-
-export let departmentOptions: { name: string; id: string }[] = [];
-export let positionOptions: { name: string; id: string }[] = [];
-
-async function createDepartmentEnum() {
-  const result: Result = await getAllDepartments();
-  const departments = result.data;
-
-  if (!Array.isArray(departments)) {
-    throw new Error("Expected an array of departments");
-  }
-
-  departmentOptions = departments.map((department) => ({
-    name: department.name,
-    id: department.id,
-  }));
-
-  const DepartmentEnum = departments.reduce((acc, department) => {
-    acc[department.name] = department.id;
-    return acc;
-  }, {} as Record<string, string>);
-
-  Object.assign(Department, DepartmentEnum);
-}
-
-async function createPositionEnum() {
-  const result: Result = await getAllPositions();
-  const positions = result.data;
-
-  if (!Array.isArray(positions)) {
-    throw new Error("Expected an array of positions");
-  }
-
-  positionOptions = positions.map((position) => ({
-    name: position.name,
-    id: position.id,
-  }));
-
-  const PositionEnum = positions.reduce((acc, position) => {
-    acc[position.name] = position.id;
-    return acc;
-  }, {} as Record<string, string>);
-
-  Object.assign(Position, PositionEnum);
-}
-
-createDepartmentEnum();
-createPositionEnum();
-
-const DepartmentEnum = z.nativeEnum(Department);
-const PositionEnum = z.nativeEnum(Position);
 
 export const Employee = z.object({
-  username: z.string().min(1, { message: "Username is required" }),
-  first_name: z.string()
-    .min(1, { message: "First Name is required" })
-    .max(100, { message: "First Name must be 100 characters or less" })
-    .trim(),
-  last_name: z.string()
-    .min(1, { message: "Last Name is required" })
-    .max(100, { message: "Last Name must be 100 characters or less" })
-    .trim(),
-  date_of_joining: z.string()
-    .min(1, { message: "Date of Joining is required" }),
-  contact_number: z.string()
-    .min(1, { message: "Contact Number is required" })
-    .regex(/^\+?[0-9\s-()]+$/, { message: "Invalid contact number format" }),
-  department_id: DepartmentEnum,
-  position_id: PositionEnum,
-  salary: z.number()
-    .positive({ message: "Salary must be a positive number" }),
+  username: z.string().min(1, 'Username is required'),
+  email: z.string().email('Invalid email address'),
+  emailVisibility: z.boolean(),
+  password: z.string().min(8, 'Password must be at least 8 characters long'),
+  passwordConfirm: z.string().min(8, 'Password confirmation must be at least 8 characters long'),
+  first_name: z.string().min(1, 'First name is required'),
+  last_name: z.string().min(1, 'Last name is required'),
+  date_of_joining: z.string().datetime('Invalid date of joining'),
+  contact_number: z.string().min(1, 'Contact number is required'),
+  department_id: Department,
+  position_id : Position,
+  salary: z.number().positive('Salary must be a positive number'),
   status: z.enum(["Active", "On Leave", "Terminated", "Suspended", "Retired", "Resigned"], {
     required_error: "Status is required",
     invalid_type_error: "Invalid status",

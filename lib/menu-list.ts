@@ -113,24 +113,24 @@ export function getMenuList(pathname: string): Group[] {
           icon: Box,
           submenus: [
             {
-              href: "/inventory",
+              href: "/dashboard/inventory",
               label: "Inventory List",
               active: pathname === "/inventory"
             },
             {
-              href: "/inventory/categories",
+              href: "/dashboard/inventory/categories",
               label: "Categories",
-              active: pathname.includes("/inventory/categories")
+              active: pathname.includes("/dashboard/inventory/categories")
             },
             {
-              href: "/inventory/brands",
+              href: "/dashboard/inventory/brands",
               label: "Brands",
-              active: pathname.includes("/inventory/brands")
+              active: pathname.includes("/dashboard/inventory/brands")
             },
             {
-              href: "/inventory/products",
+              href: "/dashboard/inventory/products",
               label: "Products",
-              active: pathname.includes("/inventory/products")
+              active: pathname.includes("/dashboard/inventory/products")
             },
           ]
         },
