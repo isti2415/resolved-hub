@@ -1,6 +1,4 @@
 import { z } from 'zod';
-import { Department } from './Department';
-import { Position} from './Position';
 
 
 export const Employee = z.object({
@@ -13,8 +11,8 @@ export const Employee = z.object({
   last_name: z.string().min(1, 'Last name is required'),
   date_of_joining: z.string().datetime('Invalid date of joining'),
   contact_number: z.string().min(1, 'Contact number is required'),
-  department_id: Department,
-  position_id : Position,
+  department_id: z.string().min(1, 'Department ID is required'),
+  position_id : z.string().min(1, 'Position ID is required'),
   salary: z.number().positive('Salary must be a positive number'),
   status: z.enum(["Active", "On Leave", "Terminated", "Suspended", "Retired", "Resigned"], {
     required_error: "Status is required",

@@ -15,10 +15,10 @@ import { toast } from "@/components/ui/use-toast";
 import { editCategory } from "@/actions/ims/category";
 import { Category } from "@/types/ims/Category";
 
-function EditCategoryForm({ id, name }: {
+function EditCategoryForm({ id, name, description }: {
   id: string;
   name: string;
-  description?: string | null;
+  description: string;
   parent_category_id?: string | null;
 }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -62,6 +62,10 @@ function EditCategoryForm({ id, name }: {
             name: {
               label: "Category Name",
               inputProps: { placeholder: name }
+            },
+            description: {
+              label: "Description",
+              inputProps: { placeholder: description}
             },
           }}
           className="p-4 md:p-0"

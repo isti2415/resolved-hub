@@ -75,15 +75,15 @@ function EditProductForm({ id, name, description, category_id, cost_price, selli
             },
             cost_price: {
               label: "Cost Price",
-              inputProps: { placeholder: cost_price }
+              inputProps: { placeholder: cost_price.toString() }
             },
             selling_price: {
               label: "Selling Price",
-              inputProps: { placeholder: selling_price }
+              inputProps: { placeholder: selling_price.toString()  }
             },
             quantity_in_stock: {
               label: "Quantity in Stock",
-              inputProps: { placeholder: quantity_in_stock }
+              inputProps: { placeholder: quantity_in_stock.toString()  }
             }
           }}
           className="p-4 md:p-0"

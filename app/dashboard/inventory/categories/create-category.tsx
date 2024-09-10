@@ -61,6 +61,12 @@ function CreateCategoryForm() {
                 placeholder: "Enter category name"
               }
             },
+            description: {
+              label: "Description",
+              inputProps: {
+                placeholder: "Enter product description"
+              }
+            },
           }}
           className="p-4 md:p-0"
         >
