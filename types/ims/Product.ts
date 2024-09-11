@@ -2,12 +2,10 @@ import { z } from "zod";
 
 export const Product = z.object({
   name: z.string()
-    .min(1, { message: "Product Name is required" })
-    .max(100, { message: "Product Name must be 100 characters or less" })
+    .min(1, { message: "Product bame is required" })
     .trim(),
   description: z.string()
     .min(1, { message: "Description is required" })
-    .max(500, { message: "Description must be 500 characters or less" })
     .trim(),
   category_id: z.string()
     .min(1, { message: "Category ID is required" }),
